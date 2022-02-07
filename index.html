@@ -9,7 +9,6 @@
   </head>
   <body>
     <div id="root"></div>
-
     <script
       crossorigin
       src="https://unpkg.com/react@17/umd/react.development.js"
@@ -22,14 +21,15 @@
 
     <script type="text/babel">
       const root = document.getElementById("root");
-      const [minutes, setMinutes] = React.useState();
-      const onchange = () => {
-        console.log("wrote");
-      };
+
       function App() {
+        const [minutes, setMinutes] = React.useState();
+        const onChange = () => {
+          console.log("wrote");
+        };
         return (
           <div>
-            <h3 className="title"> Super Converter</h3>
+            <h3 className="title">Super Converter</h3>
             <label htmlFor="minutes">minutes</label>
             <input
               value={minutes}
