@@ -21,25 +21,72 @@
 
     <script type="text/babel">
       const root = document.getElementById("root");
+      function MinutesHours() {
+        const [amount, setAmount] = React.useState(0);
+        const [flipped, setFlipped] = React.useState(false);
+        const onChange = (event) => {
+          setAmount(event.target.value);
+        };
+        const onFlip = () => {
+          reset();
+          setFlipped((current) => !current);
+        };
+        const reset = () => setAmount(0);
 
+        return (
+          <div>
+            <h4 className="title">minutes to Hours</h4>
+            <div>
+              <label htmlFor="minutes">minutes</label>
+              <input
+                value={flipped ? amount * 60 : amount}
+                id="minutes"
+                placeholder="minutes"
+                type="number"
+                onChange={onChange}
+                disabled={flipped === true}
+              />
+            </div>
+            <div>
+              <label htmlFor="hours">hours</label>
+              <input
+                value={flipped ? amount : Math.floor(amount / 60)}
+                id="hours"
+                placeholder="hours"
+                type="number"
+                onChange={onChange}
+                disabled={flipped === false}
+              />
+            </div>
+            <button onClick={reset}>Reset</button>
+            <button onClick={onFlip}>{flipped ? "Turn back" : "Flip"}</button>
+          </div>
+        );
+      }
+      function KmMiles() {
+        return (
+          <div>
+            <h4 className="title">Km to Miles</h4>
+          </div>
+        );
+      }
       function App() {
-        const [minutes, setMinutes] = React.useState();
-        const onChange = () => {
-          console.log("wrote");
+        const [index, setIndex] = React.useState("xx");
+        const onSelect = (event) => {
+          setIndex(event.target.value);
         };
         return (
           <div>
-            <h3 className="title">Super Converter</h3>
-            <label htmlFor="minutes">minutes</label>
-            <input
-              value={minutes}
-              id="minutes"
-              placeholder="minutes"
-              type="number"
-              onChange={onChange}
-            />
-            <label htmlFor="hours">hours</label>
-            <input id="hours" placeholder="hours" type="number" />
+            <h3>Super Converter</h3>
+            <select value={index} onChange={onSelect}>
+              <option value="xx">Select your units</option>
+              <option value="0">Minutes to Hours</option>
+              <option value="1">Km to Miles</option>
+            </select>
+            <hr />
+            {index === "xx" ? "Please select your units" : null}
+            {index === "0" ? <MinutesHours /> : null}
+            {index === "1" ? <KmMiles /> : null}
           </div>
         );
       }
