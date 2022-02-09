@@ -64,9 +64,44 @@
         );
       }
       function KmMiles() {
+        const [amount, setAmount] = React.useState(0);
+        const [flipped, setFlipped] = React.useState(false);
+        const reset = () => setAmount(0);
+        const onChange = (event) => {
+          setAmount(event.target.value);
+        };
+        const onFlip = () => {
+          reset();
+          setFlipped((current) => !current);
+        };
+
         return (
           <div>
             <h4 className="title">Km to Miles</h4>
+            <div>
+              <label htmlFor="kilometers">Km</label>
+              <input
+                value={flipped ? amount * 1.6 : amount}
+                id="kilometers"
+                placeholder="1.6 Km"
+                type="number"
+                disabled={flipped === true}
+                onChange={onChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="miles">Miles</label>
+              <input
+                id="miles"
+                placeholder="1 Miles"
+                type="number"
+                value={flipped ? amount : amount / 1.6}
+                disabled={flipped === false}
+                onChange={onChange}
+              />
+            </div>
+            <button onClick={reset}>Reset</button>
+            <button onClick={onFlip}>{flipped ? "Turn back" : "Flip"}</button>
           </div>
         );
       }
