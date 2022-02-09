@@ -17,111 +17,38 @@
       crossorigin
       src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
     ></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script type="text/babel">
       const root = document.getElementById("root");
-      function MinutesHours() {
-        const [amount, setAmount] = React.useState(0);
-        const [flipped, setFlipped] = React.useState(false);
-        const onChange = (event) => {
-          setAmount(event.target.value);
-        };
-        const onFlip = () => {
-          reset();
-          setFlipped((current) => !current);
-        };
-        const reset = () => setAmount(0);
-
+      function Btn({ text, fontSize }) {
         return (
-          <div>
-            <h4 className="title">minutes to Hours</h4>
-            <div>
-              <label htmlFor="minutes">minutes</label>
-              <input
-                value={flipped ? amount * 60 : amount}
-                id="minutes"
-                placeholder="minutes"
-                type="number"
-                onChange={onChange}
-                disabled={flipped === true}
-              />
-            </div>
-            <div>
-              <label htmlFor="hours">hours</label>
-              <input
-                value={flipped ? amount : Math.floor(amount / 60)}
-                id="hours"
-                placeholder="hours"
-                type="number"
-                onChange={onChange}
-                disabled={flipped === false}
-              />
-            </div>
-            <button onClick={reset}>Reset</button>
-            <button onClick={onFlip}>{flipped ? "Turn back" : "Flip"}</button>
-          </div>
+          <button
+            style={{
+              display: "block",
+              backgroundColor: "red",
+              color: "white",
+              border: 0,
+              fontSize,
+            }}
+          >
+            {text}
+          </button>
         );
       }
-      function KmMiles() {
-        const [amount, setAmount] = React.useState(0);
-        const [flipped, setFlipped] = React.useState(false);
-        const reset = () => setAmount(0);
-        const onChange = (event) => {
-          setAmount(event.target.value);
-        };
-        const onFlip = () => {
-          reset();
-          setFlipped((current) => !current);
-        };
-
-        return (
-          <div>
-            <h4 className="title">Km to Miles</h4>
-            <div>
-              <label htmlFor="kilometers">Km</label>
-              <input
-                value={flipped ? amount * 1.6 : amount}
-                id="kilometers"
-                placeholder="1.6 Km"
-                type="number"
-                disabled={flipped === true}
-                onChange={onChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="miles">Miles</label>
-              <input
-                id="miles"
-                placeholder="1 Miles"
-                type="number"
-                value={flipped ? amount : amount / 1.6}
-                disabled={flipped === false}
-                onChange={onChange}
-              />
-            </div>
-            <button onClick={reset}>Reset</button>
-            <button onClick={onFlip}>{flipped ? "Turn back" : "Flip"}</button>
-          </div>
-        );
-      }
+      Btn.propTypes = {
+        test: PropTypes.string,
+        fontSize: PropTypes.number,
+      };
       function App() {
-        const [index, setIndex] = React.useState("xx");
-        const onSelect = (event) => {
-          setIndex(event.target.value);
-        };
+        const [value, setValue] = React.useState("Save Changes");
+        const changeValue = () => setValue("Revert Changes");
         return (
           <div>
-            <h3>Super Converter</h3>
-            <select value={index} onChange={onSelect}>
-              <option value="xx">Select your units</option>
-              <option value="0">Minutes to Hours</option>
-              <option value="1">Km to Miles</option>
-            </select>
-            <hr />
-            {index === "xx" ? "Please select your units" : null}
-            {index === "0" ? <MinutesHours /> : null}
-            {index === "1" ? <KmMiles /> : null}
+            <Btn text={value} onClick={changeValue} fontSize={25} />
+            <Btn text="Clear" fontSize={18} />
           </div>
         );
       }
