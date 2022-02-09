@@ -1,1 +1,4 @@
-# learn_reactjs
+## learn_reactjs. 
+
+studying at Nomad Coders.
+
